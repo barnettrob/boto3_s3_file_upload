@@ -37,11 +37,14 @@ def upload():
         flash('No file selected')
 
     if request.files['s3file'] and allowed_file(request.files['s3file'].filename):
-        s3 = boto3.client(
-            "s3",
-            aws_access_key_id='[ACCESS_KEY]',
-            aws_secret_access_key='[SECRET_KEY]'
-        )
+	# Uncomment below client call with aws_access_key_id and aws_secret_access_key if no credentials file in .aws folder.
+	# Don't forget to comment out the client call with only "s3".
+        # s3 = boto3.client(
+        #     "s3",
+        #     aws_access_key_id='[ACCESS_KEY]',
+        #     aws_secret_access_key='[SECRET_KEY]'
+        # )
+        s3 = boto3.client("s3")
 
         s3.upload_fileobj(
             request.files['s3file'],
